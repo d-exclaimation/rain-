@@ -1,4 +1,9 @@
-const ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:5173"];
+const ALLOWED_ORIGINS = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://rain.talker.dev",
+  "https://rain-olive-ten.vercel.app",
+];
 
 export function cors(req: Request): Record<string, string> {
   const origin = req.headers.get("Origin");
