@@ -7,9 +7,9 @@ Deno.serve(
   router({
     "/": async (req) => {
       const forecast = await today();
-      const result = await prediction(forecast);
+      const rain = await prediction(forecast);
 
-      return json(req, { result });
+      return json(req, { rain });
     },
   })
 );
