@@ -1,8 +1,8 @@
 import { router } from "https://deno.land/x/rutt@0.2.0/mod.ts";
 import { z } from "https://deno.land/x/zod@v3.23.8/mod.ts";
-import { call } from "./call.ts";
-import { json } from "./cors.ts";
-import { client } from "./openai.ts";
+import { call } from "./lib/call.ts";
+import { json } from "./lib/cors.ts";
+import { client } from "./lib/openai.ts";
 
 const DirtyForecast = z.object({
   daily: z.object({
