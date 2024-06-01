@@ -36,14 +36,21 @@ export const Forecast = z.object({
   showers: z.number(),
 });
 
-export const today = async () => {
+export type TodayInput = z.infer<typeof TodayInput>;
+export const TodayInput = z.object({
+  latitude: z.string(),
+  longitude: z.string(),
+  timezone: z.string(),
+});
+
+export const today = async ({ latitude, longitude, timezone }: TodayInput) => {
   const dirty = await call(env.FORECAST_API, {
     method: "GET",
     params: {
-      latitude: "-43",
-      longitude: "172",
+      latitude,
+      longitude,
       forecast_days: "1",
-      timezone: "Pacific/Auckland",
+      timezone,
       daily:
         "temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,precipitation_hours,precipitation_probability_max,precipitation_probability_min,precipitation_probability_mean",
     },
