@@ -49,7 +49,7 @@ export const today = async ({ latitude, longitude, timezone }: TodayInput) => {
     params: {
       latitude,
       longitude,
-      forecast_days: "1",
+      forecast_days: "2",
       timezone,
       daily:
         "temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,precipitation_hours,precipitation_probability_max,precipitation_probability_min,precipitation_probability_mean",
@@ -57,22 +57,24 @@ export const today = async ({ latitude, longitude, timezone }: TodayInput) => {
     output: DirtyForecast,
   });
 
+  const latest = dirty.daily.time.length - 1;
+
   const forecast = Forecast.parse({
     temperature: {
-      max: dirty.daily.temperature_2m_max[0],
-      min: dirty.daily.temperature_2m_min[0],
+      max: dirty.daily.temperature_2m_max[latest],
+      min: dirty.daily.temperature_2m_min[latest],
     },
     precipitation: {
-      sum: dirty.daily.precipitation_sum[0],
-      hours: dirty.daily.precipitation_hours[0],
+      sum: dirty.daily.precipitation_sum[latest],
+      hours: dirty.daily.precipitation_hours[latest],
       probability: {
-        max: dirty.daily.precipitation_probability_max[0],
-        min: dirty.daily.precipitation_probability_min[0],
-        mean: dirty.daily.precipitation_probability_mean[0],
+        max: dirty.daily.precipitation_probability_max[latest],
+        min: dirty.daily.precipitation_probability_min[latest],
+        mean: dirty.daily.precipitation_probability_mean[latest],
       },
     },
-    rain: dirty.daily.rain_sum[0],
-    showers: dirty.daily.showers_sum[0],
+    rain: dirty.daily.rain_sum[latest],
+    showers: dirty.daily.showers_sum[latest],
   });
 
   return forecast;
